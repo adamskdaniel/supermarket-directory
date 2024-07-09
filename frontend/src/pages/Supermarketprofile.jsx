@@ -1,19 +1,43 @@
-import React from 'react'
+import React ,{useState, useEffect} from 'react'
 import picture1 from '../assets/picture1.jpg'
 import picture2 from '../assets/picture2.jpg'
 import picture3 from '../assets/picture3.jpg'
 import Starrating from '../components/Starrating'
 import Button from '../components/Button'
+import Reviews from '../components/Reviews'
+import { useParams } from 'react-router-dom'
+import { getSupProfile } from '../api/api'
+
+
 
 export default function Supermarketprofile() {
+ const {id} =useParams()
+
+    const [allState, setAlls]= useState(null)
+
+
+    useEffect(()=>{
+      const getAll = async()=>{
+        let allss =await getSupProfile(id)
+        console.log(id)
+        console.log(allss)
+        setAlls(allss.supermarket)
+
+      }
+
+
+      getAll()
+    }, [id])
+
+
   return (
     <div class='mx-64 my-24 space-y-8'>
         <div class='grid grid-cols-4 divide-y divide-x divide-white'>
-            <img class='row-span-3 col-span-2 h-96 object-cover' src={picture1} alt="" /> 
-            <img class='h-48 object-cover' src={picture1} alt="" /> 
-            <img class='h-48 object-cover ' src={picture1} alt="" /> 
-            <img class='h-48 object-cover ' src={picture1} alt="" /> 
-            <img class='h-48 object-cover' src={picture1} alt="" />             
+            <img class='row-span-3 col-span-2 h-96 object-cover' src={allState.supermarketPictures[0]}alt="" /> 
+            <img class='h-48 object-cover' src={allState.supermarketPictures[3]} alt="" /> 
+            <img class='h-48 object-cover ' src={allState.supermarketPictures[2]} alt="" /> 
+            <img class='h-48 object-cover ' src={allState.supermarketPictures[1]} alt="" /> 
+            <img class='h-48 object-cover' src={allState.supermarketPictures[4]} alt="" />             
         </div>
 
         <div class='grid grid-cols-5'>
@@ -22,6 +46,10 @@ export default function Supermarketprofile() {
 
                 <div class='space-y-2' >
                     <h2 class='text-2xl font-bold '>About Supermarket</h2>
+            {allState.name}
+        {allState.description}
+        <img src= {allState.supermarketPictures[0]} alt="" />
+       
                     <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Itaque cumque tenetur ad exercitationem rerum praesentium inventore nihil et aliquam quibusdam obcaecati corporis, laborum hic, placeat minus fuga, quia quasi amet?
                     Adipisci molestiae eveniet magnam. Temporibus fuga inventore sed error, repudiandae eum sequi facere dolore eligendi labore maxime voluptates tempora aperiam dicta, repellendus expedita adipisci fugit quos culpa iure aliquam recusandae!
                     Odio, nisi doloribus? Ipsa molestiae laudantium et perferendis voluptates aut ducimus corrupti doloribus, minima accusamus sequi ad sit reiciendis officiis quae deserunt dignissimos beatae praesentium rem. Dolor veritatis ratione atque?
@@ -69,23 +97,15 @@ export default function Supermarketprofile() {
             </div>
 
 
-            <div class='flex flex-col items-center justify-between h-1/2'>
+            <div class='flex flex-col items-center justify-between gap-4 h-1/2'>
                 <div>
                     <img class=' bg-slate-400 size-64 object-cover ' src={picture1} alt="" />
                     <p>Uploaded by: <span class='text-xl'>First Name</span></p>
                 </div>        
 
-                <div class='space-y-4'>
-                    <p class='font-bold px-2'>Reviews</p>
-                    <div class='flex flex-wrap gap-2'>
-                        <img class='rounded-full size-12 object-cover' src={picture1} alt="" />
-                        <img class='rounded-full size-12 object-cover' src={picture1} alt="" />
-                        <img class='rounded-full size-12 object-cover' src={picture1} alt="" />
-                        <img class='rounded-full size-12 object-cover' src={picture1} alt="" />
-                        <img class='rounded-full size-12 object-cover' src={picture1} alt="" />
-                        <img class='rounded-full size-12 object-cover' src={picture1} alt="" />
-                        <img class='rounded-full size-12 object-cover' src={picture1} alt="" />
-                    </div>
+                <div class='gap-4'>
+                    <h2 class='font-bold text-xl p-4 mx-2 bg-slate-200'>Latest Reviews</h2>
+                    <Reviews/> 
                 </div>
 
 

@@ -12,23 +12,24 @@ export default function Footer() {
             </div>
 
             <div class='space-y-3'>
-                <p class='font-bold text-lg'>Personal</p>
-                <p>Discover Personal</p>
-                <p>Transfer & Spend</p>
-                <p>Save</p>
-                <p>Investments</p>
-                <p>Kuda card</p>
+                <p class='font-bold text-lg'>About Us</p>
+                <div class='flex flex-col'>
+                    <a href="">About MartFind</a>
+                    <a href="">We are hiring!</a>
+                    <a href="">Terms & Condition</a>
+                    <a href="">Privacy Policy</a>
+                    <a href="">Billing Policy</a>
+                    <a href="">Cookie Policy</a>
+                    <a href="">Copyright Infrigement Policy</a>
+                </div>
             </div>
 
             <div class='space-y-3'>
-                <p class='font-bold text-lg'>Business</p>
-                <p>Discover Business</p>
-                <p>Business Registration</p>
-                <p>Soft POS</p>
-                <p>Invoicing</p>
-                <p>Salary Loan</p>
-                <p>Business API</p>
-                <p>Join Kuda Business</p>
+                <p class='font-bold text-lg'>Support</p>
+                <a href="">support@martfind.ng</a>
+                <a href="">Safety Tips</a>
+                <a href="">Contact Us</a>
+                <a href="">FAQ</a>
             </div>
 
             <div class='space-y-3'>
@@ -39,11 +40,17 @@ export default function Footer() {
             </div>
 
             <div class='space-y-3'>
-                <p class='font-bold text-lg'>Help</p>
+                <p class='font-bold text-lg'>Our Resources</p>
+                <a href="">Blog</a>
+                <a href="">Facebook</a>
+                <a href="">Instagram</a>
+                <a href="">Twitter</a>
+                <a href="">YouTube</a>
             </div>
 
             <div class='space-y-3'>
-                <p class='font-bold text-lg'>Transparency</p>
+                <p class='font-bold text-lg'>Hot Links</p>
+                <a href="">MartFind Africa</a>
             </div>
     
 
