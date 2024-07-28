@@ -1,18 +1,44 @@
-import React from 'react'
+import React, { useEffect, useState }  from 'react'
+import { getSupermarketsApi } from '../api/api'
 import picture2 from '../assets/picture2.jpg'
 import dummypicture from '../assets/dummypicture.png'
 import Starrating from '../components/Starrating'
 import Reviews from '../components/Reviews'
 import { Link } from 'react-router-dom'
 import HomepageSupermarketSkeleton from '../components/HomepageSupermarketSkeleton'
+import HomepageSupermarketSkeletonUI from '../components/HomepageSupermarketSkeletonUI'
 
 
 
 export default function Homepage() {
+  const [supermarkets, setSupermarkets] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const supermarketsData = await getSupermarketsApi();
+        if (supermarketsData && supermarketsData.supermarkets) {
+          setSupermarkets(supermarketsData.supermarkets);
+        } else {
+          console.error('unexpected API response', supermarketsData);
+        }
+      } catch (error) {
+        console.error('Error fetching data', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const renderSkeletons = (count) => {
+    return Array.from({ length: count }).map((_, index) => (
+      <HomepageSupermarketSkeleton key={index} />
+    ));
+  };
+
+
   return (
     <div class='flex flex-col bg-white'>
-
-  
 
       <div class='grid grid-cols-4 mx-64 my-12 gap-4'>
         <div class='row-span-7 space-y-3'>
@@ -44,48 +70,43 @@ export default function Homepage() {
 
         <div class='col-span-3 grid grid-cols-3 gap-4'>
 
-          <div class='bg-white rounded-xl h-64 shadow-lg'>
-            <img class='rounded-t-xl h-3/4 object-cover w-full ' src={picture2} alt="" />
-            <div class='flex flex-col py-2 px-3'>
-              <Link to="/supermarket/:id">
-                <p class='font-semibold'>Golf Supermarket</p>
-                <div class='flex justify-between'>
-                  <div class='size-24'><Starrating/></div>
-                  <Link to="##">
-                    <p>(<span>100</span>) Reviews</p>
+          
+          {supermarkets.length > 0 ? (
+            supermarkets.map(supermarket => {
+              const {name, _id, supermarketPictures} = supermarket;
+              console.log('Supermarket ID:', _id);
+              console.log('Supermarket Name:', name);
+              console.log('Supermarket Image:', supermarketPictures[1]);
+            
+                
+              
+            return (
+              <div key={_id} class='bg-white rounded-xl h-64 shadow-lg'>
+                <img class='rounded-t-xl h-3/4 object-cover w-full ' src={supermarketPictures[1] || dummypicture} alt={name} />
+                <div class='flex flex-col py-2 px-3'>
+                  <Link to={`/supermarket/${_id}`}>
+                    <p class='font-semibold'>{name}</p>
+                    <div class='flex justify-between'>
+                      <div class='size-24'><Starrating/></div>
+                      <Link to={`/supermarket/${_id}`}>
+                        <p>(<span>100</span>) Reviews</p>
+                      </Link>
+                    </div>
                   </Link>
                 </div>
-              </Link>
-            </div>
-          </div>
+              </div>
+            )
+          })
 
-          <HomepageSupermarketSkeleton/>
-          <HomepageSupermarketSkeleton/>
-          <HomepageSupermarketSkeleton/>
-          <HomepageSupermarketSkeleton/>
-          <HomepageSupermarketSkeleton/>
-          <HomepageSupermarketSkeleton/>
-          <HomepageSupermarketSkeleton/>
-          <HomepageSupermarketSkeleton/>
-          <HomepageSupermarketSkeleton/>
-          <HomepageSupermarketSkeleton/>
-          <HomepageSupermarketSkeleton/>
-          <HomepageSupermarketSkeleton/>
-          <HomepageSupermarketSkeleton/>
-
-
-        </div>
-
-    
-
-
-
-
-        
-      </div>
-
-      
-      
+        ) : (
+          <>
+            <HomepageSupermarketSkeletonUI/>
+            {renderSkeletons(13)}
+          </>
+         
+        )}
+       </div>
+      </div>    
     </div>
   )
 }

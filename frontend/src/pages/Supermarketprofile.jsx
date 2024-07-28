@@ -1,12 +1,10 @@
-import React ,{useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import picture1 from '../assets/picture1.jpg'
-import picture2 from '../assets/picture2.jpg'
-import picture3 from '../assets/picture3.jpg'
 import Starrating from '../components/Starrating'
 import Button from '../components/Button'
 import Reviews from '../components/Reviews'
 import { useParams } from 'react-router-dom'
-import { getSupProfile } from '../api/api'
+import { getAllSupermarket, getSupermarketsApi, getSupProfile } from '../api/api'
 
 
 
@@ -28,6 +26,10 @@ export default function Supermarketprofile() {
 
       getAll()
     }, [id])
+
+    if (!allState) {
+        return <div>Loading...</div>;
+    }
 
 
   return (
